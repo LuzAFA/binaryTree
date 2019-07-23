@@ -6,7 +6,7 @@ const treeControl = require('../controllers/treeController');
 router.post('/new', treeControl.createBinaryTree);
 
 //LowestCommonAncestor - Ancestro común más cercano
-router.post('/ancestor', treeControl.lowestCommonAncestor);
+router.post('/ancestor/:id', treeControl.lowestCommonAncestor);
 
 //consulta del arbol
 router.get('/tree/:id', treeControl.getTree);
