@@ -13,3 +13,11 @@ Para ejecutarlo basta con que ejecute dentro de la carpeta del proyecto
 
 `node server` 
 
+
+front end
+
+
+`npm install vis`
+
+
+`ng serve`

@@ -1,0 +1,57 @@
+<label> Nodo </label>
+
+<form>
+
+  <table class="table table-striped table-bordered table-wrapper-scroll-y scroll-x">
+    <thead>
+    <tr>
+      <th> Nodo Padre</th>
+      <th> Hijo Izquierda</th>
+      <th> Hijo Derecha</th>
+      <th> ACCION</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let node of nodes; let i = index">
+      <td><input type="number" name="father" [(ngModel)]='editedNode.father'/></td>
+      <td><input type="number" name="leftChild" [(ngModel)]='editedNode.leftChild'/></td>
+      <td><input type="number" name="rigthChild" [(ngModel)]='editedNode.rigthChild'/></td>
+      <td>
+        <button style="background: cornflowerblue" (click)="editNode(i)"> Editar</button>
+        <button style="background: red" (click)="deleteNode()"> Eliminar</button>
+      </td>
+    </tr>
+    <tr>
+      <td><input type="number" name="father" [(ngModel)]='newNode.father'/></td>
+      <td><input type="number" name="leftChild" [(ngModel)]='newNode.leftChild'/></td>
+      <td><input type="number" name="rigthChild" [(ngModel)]='newNode.rigthChild'/></td>
+      <td>
+        <button class="btn btn-default" type="button" (click)="addNodes()">AGREGAR</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  val: {{val}}
+  <br/>
+
+</form>
+
+<div id="mynetwork" #siteConfigNetwork></div>
+
+
+<style type="text/css">
+  #mynetwork {
+    width: 700px;
+    height: 300px;
+    border: 1px solid lightgray;
+  }
+
+  #mySvgNetwork {
+    width: 700px;
+    height: 300px;
+    border: 1px solid lightgray;
+  }
+</style>
+
