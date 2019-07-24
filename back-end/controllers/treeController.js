@@ -43,7 +43,6 @@ getAncestors = (idNode, fathers) => {
             fathers.push(childNode.father);
         }
     }
-
     if (childNode.father != -1) {
         getAncestors(childNode.father, fathers)
     }
@@ -97,13 +96,11 @@ exports.getTree = (req, res, next) => {
         if (err) {
             res.status(200).send("Server Error - Something wrong when find!");
         }
-
         const data = {
             id: doc.id,
             nodes: doc.nodes,
             edges: doc.edges
         };
-        //manda a front
         res.send({data})
     });
 };
@@ -123,14 +120,11 @@ exports.editTree = async (req, res) => {
         nodes: req.body.nodes,
         edges: req.body.edges
     };
-
     await Tree.findOneAndUpdate({id: id}, {$set: newTree}, {new: true});
-
     Tree.findOne({id: id}, (err, doc) => {
         if (err) {
             res.status(200).send("Server Error - Something wrong when find tree!");
         }
-
         res.send(doc)
     });
 };
