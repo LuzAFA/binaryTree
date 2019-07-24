@@ -1,6 +1,4 @@
-'use stricts'
-
-
+'use stricts';
 let chai = require('chai');
 var expect = require("chai").expect;
 let chaiHttp = require('chai-http');

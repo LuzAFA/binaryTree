@@ -78,26 +78,26 @@ loadTreeData = (id, res, callback) => {
 };
 
 //retorna lista de ascendientes segun el nodo
-getAncestors = (idNode, fathers) => {
+getAncestors = (idNode, parents) => {
     let childNode = {};
     for (let i = 0; i < nodes.length; i++) {
         if (nodes[i].id == idNode) {
             childNode = nodes[i];
-            fathers.push(childNode.father);
+            parents.push(childNode.parent);
         }
     }
-    if (childNode.father != -1) {
-        getAncestors(childNode.father, fathers)
+    if (childNode.parent != -1) {
+        getAncestors(childNode.parent, parents)
     }
-    return fathers;
+    return parents;
 };
 
 //reordena el grafo y busca los ascendientes del nodo
 ordenedNodeAncestors = (idNode) => {
     nodes = treeData.nodes.reverse();
-    let fathers = [];
-    getAncestors(idNode, fathers);
-    return fathers;
+    let parents = [];
+    getAncestors(idNode, parents);
+    return parents;
 };
 
 //establece el ascendente mas cercano

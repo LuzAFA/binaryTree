@@ -4,10 +4,9 @@ const routes = require('./routes/btRoutes');
 const mongoose = require('mongoose');// Da la conexion entre NodeJS y MongoDB
 const app = express();
 const PORT = 8080; //puerto donde se levanta el servidor
-const DB = 'mongodb://localhost:27017/BT'; // enlace de la bd
 
 //Conexion y base de datos
-mongoose.connect(DB, {useNewUrlParser: true}).then(
+mongoose.connect('mongodb://localhost:27017/BT', {useNewUrlParser: true}).then(
     () => {
         console.log('Conexion a DB Exitosa!')
     },
