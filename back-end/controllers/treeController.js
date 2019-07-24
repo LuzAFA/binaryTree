@@ -4,17 +4,18 @@ let treeData = [];
 //consultar UN arbol
 exports.getTree = (req, res, next) => {
     const id = req.params.id;
-    console.log(id, "id");
     Tree.findOne({id: id}, (err, doc) => {
-        if (err) {
-            res.status(200).send("Server Error - Something wrong when find!");
+        if (err || (doc === null)) {
+            res.status(500).send("Server Error - Something wrong when find!");
+        } else {
+
+            const data = {
+                id: doc.id,
+                nodes: doc.nodes,
+                edges: doc.edges
+            };
+            res.status(200).send({data})
         }
-        const data = {
-            id: doc.id,
-            nodes: doc.nodes,
-            edges: doc.edges
-        };
-        res.send({data})
     });
 };
 
@@ -35,8 +36,8 @@ exports.editTree = async (req, res) => {
     };
     await Tree.findOneAndUpdate({id: id}, {$set: newTree}, {new: true});
     Tree.findOne({id: id}, (err, doc) => {
-        if (err) {
-            res.status(200).send("Server Error - Something wrong when find tree!");
+        if (err || (doc === null)) {
+            res.status(500).send("Server Error - Something wrong whit the tree!");
         }
         res.send(doc)
     });
@@ -54,7 +55,7 @@ exports.createBinaryTree = (req, res, next) => {
         if (err && err.code === 11000) {
             return res.status(409).send("ID existente")
         }
-        if (err) return res.status(200).send("Server Error");
+        if (err) return res.status(500).send("Server Error");
         //manda a front
         res.send(saved)
     });
@@ -68,9 +69,10 @@ loadTreeData = (id, res, callback) => {
     Tree.find({id: id}, function (err, result) {
         if (err) {
             callback(err, null);
+            res.status(500).send(err);
         } else {
             result = {'lca': callback(null, result)};
-            res.send(result);
+            res.status(200).send(result);
         }
     });
 };

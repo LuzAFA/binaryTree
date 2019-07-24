@@ -20,6 +20,8 @@ Para la realizacion de Test
 
 `npm install chai --save` 
 
+`npm install chai-http`
+
 `npm test`
 
 
