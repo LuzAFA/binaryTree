@@ -1,6 +1,47 @@
 const Tree = require('../DAO/binaryTreeDao');
 let treeData = [];
 
+//consultar UN arbol
+exports.getTree = (req, res, next) => {
+    const id = req.params.id;
+    console.log(id, "id");
+    Tree.findOne({id: id}, (err, doc) => {
+        if (err) {
+            res.status(200).send("Server Error - Something wrong when find!");
+        }
+        const data = {
+            id: doc.id,
+            nodes: doc.nodes,
+            edges: doc.edges
+        };
+        res.send({data})
+    });
+};
+
+//consultar arboles
+exports.getTrees = async (req, res) => {
+    const trees = await Tree.find();
+    res.json(trees);
+};
+
+
+//editar arbol
+exports.editTree = async (req, res) => {
+    const id = parseInt(req.params.id);
+    const newTree = {
+        id: req.body.id,
+        nodes: req.body.nodes,
+        edges: req.body.edges
+    };
+    await Tree.findOneAndUpdate({id: id}, {$set: newTree}, {new: true});
+    Tree.findOne({id: id}, (err, doc) => {
+        if (err) {
+            res.status(200).send("Server Error - Something wrong when find tree!");
+        }
+        res.send(doc)
+    });
+};
+
 //creacion del arbol
 exports.createBinaryTree = (req, res, next) => {
     console.log(req.body);
@@ -88,44 +129,4 @@ exports.lowestCommonAncestor = async (req, res, next) => {
 };
 
 
-//consultar UN arbol
-exports.getTree = (req, res, next) => {
-    const id = req.params.id;
-    console.log(id, "id");
-    Tree.findOne({id: id}, (err, doc) => {
-        if (err) {
-            res.status(200).send("Server Error - Something wrong when find!");
-        }
-        const data = {
-            id: doc.id,
-            nodes: doc.nodes,
-            edges: doc.edges
-        };
-        res.send({data})
-    });
-};
-
-//consultar arboles
-exports.getTrees = async (req, res) => {
-    const trees = await Tree.find();
-    res.json(trees);
-};
-
-
-//editar arbol
-exports.editTree = async (req, res) => {
-    const id = parseInt(req.params.id);
-    const newTree = {
-        id: req.body.id,
-        nodes: req.body.nodes,
-        edges: req.body.edges
-    };
-    await Tree.findOneAndUpdate({id: id}, {$set: newTree}, {new: true});
-    Tree.findOne({id: id}, (err, doc) => {
-        if (err) {
-            res.status(200).send("Server Error - Something wrong when find tree!");
-        }
-        res.send(doc)
-    });
-};
 
