@@ -45,7 +45,6 @@ exports.editTree = async (req, res) => {
 
 //creacion del arbol
 exports.createBinaryTree = (req, res, next) => {
-    console.log(req.body);
     const newTree = {
         id: req.body.id,
         nodes: req.body.nodes,
@@ -116,10 +115,8 @@ firstCommonAncestor = (ancestors1, ancestors2) => {
 
 exports.lowestCommonAncestor = async (req, res, next) => {
 
-    let nana = [];
-    let d = await loadTreeData(req.params.id, res, (err, doc) => {
+    await loadTreeData(req.params.id, res, (err, doc) => {
         if (err) {
-            console.log(err);
             return err;
         }
         treeData = doc[0];
