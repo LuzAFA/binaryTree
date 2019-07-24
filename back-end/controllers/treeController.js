@@ -29,28 +29,31 @@ documents = (id, callback) => {
     });
 };
 
-//ancestros del nodo
-nodeAncestors = (idNode) => {
-    let childNode = idNode;
-    let parentnode = [];
-    nodes = treeData.nodes.reverse();
-    console.log(idNode);
-    let i = 0;
-    while (nodes.father != -1 && i <nodes.length) {
-        console.log(nodes[i], i +" ********************+");
-        if (nodes[i].id == childNode) {
-            parentnode.push(nodes[i].father);
-            childNode = nodes[i].father;
-            i++;
-        } else {
-            i++;
-        }
+//retorna lista de padres segun el nodo
+getFather = (idNode, fathers) => {
+    let childNode = {};
 
+    for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].id == idNode) {
+            childNode = nodes[i];
+            fathers.push(childNode.father);
+        }
     }
 
-    console.log("ancestros ", parentnode)
+    if (childNode.father != -1) {
+        getFather(childNode.father, fathers)
+    }
+    return fathers;
+};
 
-    return parentnode;
+//ancestros del nodo
+nodeAncestors = (idNode) => {
+    nodes = treeData.nodes.reverse();
+    let fathers = [];
+    getFather(idNode, fathers);
+
+    console.log("ancestros ", fathers);
+    return fathers;
 };
 
 commonAncestor = (ancestors1, ancestors2) => {
