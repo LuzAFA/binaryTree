@@ -124,7 +124,7 @@ exports.editTree = async (req, res) => {
         edges: req.body.edges
     };
 
-    await Tree.findOneAndUpdate({id: id}, {$set: newTree}, {new: true})
+    await Tree.findOneAndUpdate({id: id}, {$set: newTree}, {new: true});
 
     Tree.findOne({id: id}, (err, doc) => {
         if (err) {
