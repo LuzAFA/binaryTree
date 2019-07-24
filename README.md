@@ -26,27 +26,28 @@ de peticiones http como postman.
 
 1. para la creacion de un arbol, realice una peticion POST a la url http://localhost:8080/bt/new  y como body de esta 
 peticion un json con la siguiente estructura
-`{
-	"id": 4,
-	"nodes":[
-		{"id":1, "parent":-1},
-		{"id":2, "parent":1},
-		{"id":3, "parent":1},
-		{"id":4, "parent":2}
-		],
-	"edges":[
-		{"from":1, "to":2},
-		{"from":1, "to":3},
-		{"from":2, "to":4}
-	]
-}
+`{`
+`	"id": 4,`
+`	"nodes":[`
+`		{"id":1, "parent":-1},`
+`		{"id":2, "parent":1},`
+`		{"id":3, "parent":1},`
+`		{"id":4, "parent":2}`
+`		],`
+`	"edges":[`
+`		{"from":1, "to":2},`
+`		{"from":1, "to":3},`
+`		{"from":2, "to":4}`
+`	]`
+`}`
 `
 donde, en el campo id se guarda el identificador del arbol, en el campo nodes el id es el identificador del nodo y parent es el nodo padre, en el nodo raiz el padre debe ser -1;
 en edges se representan los enlaces de nodos padre e hijo, el from es el nodo padre y el to es el nodo hijo. 
 
 2. para listado de todos los arbles almacenados realice una peticion GET a la url http://localhost:8080/bt/trees
-para conocer el ancestro comun mas cercano entre dos nodos genere una peticion POST a la url http://localhost:8080/bt/ancestor/id 
-enviando como parametro id en el url el id con el que almaceno el arbol y como body de dicha peticion el siguiente json 
+
+3. para conocer el ancestro comun mas cercano entre dos nodos genere una peticion POST a la url http://localhost:8080/bt/ancestor/id 
+enviando como parametro id en el url el id con el que almaceno el arbol y como body de dicha peticion un json con la siguiente estructura  
 `{
     "node1": idPrimerNodo,
     "node2": idSegundoNodo
